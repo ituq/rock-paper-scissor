@@ -1,0 +1,17 @@
+body{
+    display: flex;
+    flex-direction: column;
+}
+.buttons{
+    display: flex;
+    justify-content: center;
+    gap:10px;
+}
+.score{
+    display: flex;
+    justify-content: space-between;
+}
+#result{
+    align-self: center;
+    margin-top: 10px;
+}

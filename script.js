@@ -1,4 +1,57 @@
-game();
+let inputs = [];
+inputs[0]= document.querySelector("#rock");
+inputs[1]= document.querySelector("#paper");
+inputs[2]= document.querySelector("#scissor");
+const roundDisplay = document.querySelector(".round");
+const playerScoreDisplay = document.querySelector(".left");
+const compScoreDisplay = document.querySelector(".right");
+const statusDisplay = document.querySelector("#result");
+
+let scorePlayer=0, scoreMachine=0;
+let round=1;
+    for(let i=0;i<3;i++){
+        inputs[i].addEventListener("click", () => updateScore(i))
+    }
+
+
+function updateScore(button){
+    let output = decide(button,getComputerChoice());
+    if(output.charAt(0)=="W"){
+        playerScoreDisplay.textContent=`Player: ${++scorePlayer}`;
+        console.log("player won");
+    }
+    else if(output.charAt(0)=="L"){
+        compScoreDisplay.textContent=`Machine: ${++scoreMachine}`;
+        console.log("computer won");
+    }
+    else{
+        /*retry round*/
+        round--;
+    }
+    round++;
+    statusDisplay.textContent=output;
+    if(round==6){
+        displayResult(scorePlayer>scoreMachine ? `You won by ${scorePlayer-scoreMachine} Points!`: `You lost by ${scoreMachine-scorePlayer} points`);
+        round=0;
+        scoreMachine=0;
+        scorePlayer=0;
+    }
+    roundDisplay.textContent=`Round ${round}`;
+
+    
+
+}
+function incrementRound(roundNum, roundElem){
+    roundNum++;
+    roundElem.textContent=`Round: ${roundNum}`;
+}
+
+
+function displayResult(str){
+    const out=document.querySelector("#result");
+    out.textContent=str;
+}
+
 /* 0=rock, 1=paper, 2=scissor*/
 function getComputerChoice(){
     let choice = 2* Math.random();
@@ -55,7 +108,7 @@ function convert(input){
             return 3;
     }
 }
-function game(){
+function game(round, playerScore,){
     let scorePlayer=0,scoreMachine =0;
     for(let i =0;i<5;i++){
         let input=convert(prompt("What is your move?"));
